@@ -79,7 +79,7 @@ class WPMD_Slack_Post {
 	 *
 	 * @author Gary Kovar
 	 */
-	public function sned_message() {
+	public function send_message() {
 		wp_remote_post( $this->slack_endpoint, array(
 				'method' => 'POST',
 				'timeout' => 30,
@@ -91,5 +91,17 @@ class WPMD_Slack_Post {
 		);
 	}
 
+	/**
+	 * Set up the message.
+	 *
+	 * @author Gary Kovar
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $message Theoretically the message the user wants to send in.
+	 */
+	public function set_message( $message ) {
+		$this->message = sanitize_textarea_field( $message );
+	}
 
 }
