@@ -65,7 +65,7 @@ class WPMD_Options {
 		$this->hooks();
 
 		// Set our title.
-		$this->title = esc_attr__( 'WP Meetup Doorbell Options', 'wp-meetup-doorbell' );
+		$this->title = esc_attr__( 'WP Meetup', 'wp-meetup-doorbell' );
 	}
 
 	/**
@@ -103,7 +103,9 @@ class WPMD_Options {
 			$this->title,
 			'manage_options',
 			$this->key,
-			array( $this, 'admin_page_display' )
+			array( $this, 'admin_page_display' ),
+			'dashicons-phone',
+			72
 		);
 
 		// Include CMB CSS in the head to avoid FOUC.
@@ -145,11 +147,10 @@ class WPMD_Options {
 
 		// Add your fields here.
 		$cmb->add_field( array(
-			'name'    => __( 'Test Text', 'wp-meetup-doorbell' ),
-			'desc'    => __( 'field description (optional)', 'wp-meetup-doorbell' ),
-			'id'      => 'test_text', // No prefix needed.
+			'name'    => __( 'Slack Endpoint', 'wp-meetup-doorbell' ),
+			'desc'    => __( 'format: https://hooks.slack.com/services/T00000000/B00000000/xxxxxxxxxxxxxxxxxxxxxxxx', 'wp-meetup-doorbell' ),
+			'id'      => 'slack_endpoint', // No prefix needed.
 			'type'    => 'text',
-			'default' => __( 'Default Text', 'wp-meetup-doorbell' ),
 		) );
 
 	}
