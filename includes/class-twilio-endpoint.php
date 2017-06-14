@@ -39,6 +39,10 @@ class WPMD_Twilio_Endpoint {
 	 * @since  0.1.0
 	 */
 	public function hooks() {
+		add_action( 'wp_ajax_nopriv_wp_meetup_doorbell', [ $this, 'handle_twilio_message'] );
+	}
 
+	public function handle_twilio_message(){
+		error_log($_POST);
 	}
 }
