@@ -42,6 +42,13 @@ class WPMD_Twilio_Endpoint {
 		add_action( 'wp_ajax_nopriv_wp_meetup_doorbell', [ $this, 'handle_twilio_message'] );
 	}
 
+	/**
+	 * Pass the twilio message over to slack.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @author Gary Kovar
+	 */
 	public function handle_twilio_message(){
 		$this->plugin->slack_post->set_message( $_POST['Body'] );
 		$this->plugin->slack_post->send_message();

@@ -80,7 +80,7 @@ class WPMD_Slack_Post {
 	 * @author Gary Kovar
 	 */
 	public function send_message() {
-		wp_remote_post( $this->slack_endpoint, array(
+		$message_results = wp_remote_post( $this->slack_endpoint, array(
 				'method' => 'POST',
 				'timeout' => 30,
 				'redirection' => 5,
@@ -89,6 +89,8 @@ class WPMD_Slack_Post {
 				'body' => $this->message
 			)
 		);
+
+		error_log( $message_results );
 	}
 
 	/**
