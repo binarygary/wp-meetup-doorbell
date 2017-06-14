@@ -1,0 +1,18 @@
+{
+  "name": "wp-meetup-doorbell",
+  "description": "A \"doorbell\" app for our meetup. Recieves an incoming text messages and notifies the #meetup channel of our slack team.",
+  "license": "GPLv2",
+  "authors": [
+    "binarygary"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}

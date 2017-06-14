@@ -1,0 +1,19 @@
+{
+  "generator-plugin-wp": {
+    "name": "WP Meetup Doorbell",
+    "homepage": "https://wpjax.org",
+    "description": "A \"doorbell\" app for our meetup. Recieves an incoming text messages and notifies the #meetup channel of our slack team.",
+    "version": "0.1.0",
+    "author": "binarygary",
+    "authoremail": "plugins@binarygary.com",
+    "authorurl": "http://wpjax.org",
+    "license": "GPLv2",
+    "slug": "wp-meetup-doorbell",
+    "classname": "WP_Meetup_Doorbell",
+    "mainclassname": "WP_Meetup_Doorbell",
+    "classprefix": "WPMD_",
+    "prefix": "wp_meetup_doorbell",
+    "year": 2017,
+    "currentVersionWP": "4.7.2"
+  }
+}
