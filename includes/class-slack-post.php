@@ -107,7 +107,7 @@ class WPMD_Slack_Post {
 			'payload' => json_encode( array(
 					'text'       => sanitize_textarea_field( $message ),
 					'username'   => 'WP Jax Meetup Doorbell',
-					'icon_emoji' => 'door',
+					'icon_emoji' => ':door:',
 				)
 			),
 		);
