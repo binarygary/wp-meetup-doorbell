@@ -43,6 +43,7 @@ class WPMD_Twilio_Endpoint {
 	}
 
 	public function handle_twilio_message(){
-		error_log( print_r( $_POST, 1 ) );
+		$this->plugin->slack_post->set_message( $_POST['Body'] );
+		$this->plugin->slack_post->send_message();
 	}
 }
