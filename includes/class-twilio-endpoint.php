@@ -43,6 +43,6 @@ class WPMD_Twilio_Endpoint {
 	}
 
 	public function handle_twilio_message(){
-		error_log($_POST);
+		error_log( print_r( $_POST, 1 ) );
 	}
 }
