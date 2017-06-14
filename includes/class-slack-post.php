@@ -86,7 +86,7 @@ class WPMD_Slack_Post {
 				'redirection' => 5,
 				'httpversion' => '1.0',
 				'blocking'    => true,
-				'body'        => $this->message,
+				'body'        => '@here One of our meetup pals is at the door downstairs and they said: ' . $this->message,
 			)
 		);
 	}
