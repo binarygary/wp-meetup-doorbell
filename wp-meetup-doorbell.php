@@ -131,6 +131,14 @@ final class WP_Meetup_Doorbell {
 	protected $options;
 
 	/**
+	 * Instance of WPMD_Twilio_Endpoint
+	 *
+	 * @since0.1.0
+	 * @var WPMD_Twilio_Endpoint
+	 */
+	protected $twilio_endpoint;
+
+	/**
 	 * Creates or returns an instance of this class.
 	 *
 	 * @since   0.1.0
@@ -164,6 +172,7 @@ final class WP_Meetup_Doorbell {
 
 		$this->slack_post = new WPMD_Slack_Post( $this );
 		$this->options = new WPMD_Options( $this );
+		$this->twilio_endpoint = new WPMD_Twilio_Endpoint( $this );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
@@ -321,6 +330,7 @@ final class WP_Meetup_Doorbell {
 			case 'path':
 			case 'slack_post':
 			case 'options':
+			case 'twilio_endpoint':
 				return $this->$field;
 			default:
 				throw new Exception( 'Invalid ' . __CLASS__ . ' property: ' . $field );
