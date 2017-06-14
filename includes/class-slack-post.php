@@ -90,7 +90,7 @@ class WPMD_Slack_Post {
 			)
 		);
 
-		error_log( $message_results );
+		error_log( print_r( $message_results,1 ) );
 	}
 
 	/**
