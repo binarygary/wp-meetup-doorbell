@@ -104,7 +104,7 @@ class WPMD_Slack_Post {
 		$this->message = array(
 			'payload' => json_encode( array(
 					'text'       => '@here One of our meetup pals is at the door downstairs and they said: ' . sanitize_textarea_field( $message ),
-					'username'   => 'WP Jax Meetup Doorbell',
+					'username'   => 'wp-jax-meetup-doorbell',
 					'icon_emoji' => ':door:',
 				)
 			),
