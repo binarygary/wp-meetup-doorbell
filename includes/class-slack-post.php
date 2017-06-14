@@ -89,8 +89,6 @@ class WPMD_Slack_Post {
 				'body'        => $this->message,
 			)
 		);
-
-		error_log( print_r( $message_results, 1 ) );
 	}
 
 	/**
