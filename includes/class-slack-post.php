@@ -103,7 +103,7 @@ class WPMD_Slack_Post {
 	 * @param string $message Theoretically the message the user wants to send in.
 	 */
 	public function set_message( $message ) {
-		$this->message = sanitize_textarea_field( $message );
+		$this->message = json_encode( sanitize_textarea_field( $message ) );
 	}
 
 }
