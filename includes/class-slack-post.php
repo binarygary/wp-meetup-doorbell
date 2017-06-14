@@ -86,7 +86,7 @@ class WPMD_Slack_Post {
 				'redirection' => 5,
 				'httpversion' => '1.0',
 				'blocking'    => true,
-				'body'        => '@here One of our meetup pals is at the door downstairs and they said: ' . $this->message,
+				'body'        => $this->message,
 			)
 		);
 	}
@@ -103,7 +103,7 @@ class WPMD_Slack_Post {
 	public function set_message( $message ) {
 		$this->message = array(
 			'payload' => json_encode( array(
-					'text'       => sanitize_textarea_field( $message ),
+					'text'       => '@here One of our meetup pals is at the door downstairs and they said: ' . sanitize_textarea_field( $message ),
 					'username'   => 'WP Jax Meetup Doorbell',
 					'icon_emoji' => ':door:',
 				)
