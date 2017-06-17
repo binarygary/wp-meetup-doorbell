@@ -1,4 +1,7 @@
 <?php
+
+namespace WDS\MeetupDoorbell;
+
 /**
  * Plugin Name: WP Meetup Doorbell
  * Plugin URI:  https://wpjax.org
@@ -125,7 +128,7 @@ final class WP_Meetup_Doorbell {
 	/**
 	 * Instance of WPMD_Options
 	 *
-	 * @since0.1.0
+	 * @since 0.1.0
 	 * @var WPMD_Options
 	 */
 	protected $options;
@@ -133,7 +136,7 @@ final class WP_Meetup_Doorbell {
 	/**
 	 * Instance of WPMD_Twilio_Endpoint
 	 *
-	 * @since0.1.0
+	 * @since 0.1.0
 	 * @var WPMD_Twilio_Endpoint
 	 */
 	protected $twilio_endpoint;
