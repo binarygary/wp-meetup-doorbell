@@ -210,6 +210,11 @@ final class WP_Meetup_Doorbell {
 
 		// Make sure any rewrite functionality has been loaded.
 		flush_rewrite_rules();
+
+		// Add a cron so we can grab the calendar, turn on/off notifications.
+		if ( ! wp_next_scheduled( 'wp-meetup-doorbell-cron' ) ) {
+			wp_schedule_event( time(), 'hourly', 'wp-meetup-doorbell-cron' );
+		}
 	}
 
 	/**
@@ -220,6 +225,10 @@ final class WP_Meetup_Doorbell {
 	 */
 	public function _deactivate() {
 		// Add deactivation cleanup functionality here.
+
+		// Clear the cron.
+		wp_clear_scheduled_hook( 'wp-meetup-doorbell-cron' );
+
 	}
 
 	/**
