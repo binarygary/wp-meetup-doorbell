@@ -111,6 +111,8 @@ class WPMD_Meetup_Event extends CPT_Core {
 
 	public function update_calendar() {
 		$calendar = new WPMD_Meetup_Calendar();
-		$calendar->get_events();
+		foreach( $calendar->get_events() as $event) {
+			// Check the UID and add/update.
+		}
 	}
 }
