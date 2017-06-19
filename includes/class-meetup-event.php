@@ -49,14 +49,8 @@ class WPMD_Meetup_Event extends CPT_Core {
 				'wpmd-meetup-event',
 			),
 			array(
-				'supports' => array(
-					'title',
-					'editor',
-					'excerpt',
-					'thumbnail',
-				),
-				'menu_icon' => 'dashicons-admin-post', // https://developer.wordpress.org/resource/dashicons/
-				'public'    => true,
+				'public'  => false,
+				'show_ui' => false,
 			)
 		);
 	}
