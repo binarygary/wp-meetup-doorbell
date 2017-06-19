@@ -62,6 +62,7 @@ class WPMD_Meetup_Event extends CPT_Core {
 	 */
 	public function hooks() {
 		add_action( 'cmb2_init', array( $this, 'fields' ) );
+		add_action( 'wp-meetup-doorbell-cron', array( $this, 'update_calendar' ) );
 	}
 
 	/**
@@ -106,5 +107,9 @@ class WPMD_Meetup_Event extends CPT_Core {
 	public function columns_display( $column, $post_id ) {
 		switch ( $column ) {
 		}
+	}
+
+	public function update_calendar() {
+		$calendar = new WPMD_Meetup_Calendar();
 	}
 }
