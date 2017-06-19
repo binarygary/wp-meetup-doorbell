@@ -156,7 +156,7 @@ class WPMD_Options {
 		// Meetup group name.
 		$cmb->add_field( array(
 			'name' => __( 'Meetup slug', 'wp-meetup-doorbell' ),
-			'dec'  => __( 'example: \'wordpress-jacksonville\' in https://www.meetup.com/wordpress-jacksonville/events/', 'wp-meetup-doorbell' ),
+			'desc' => __( 'example: \'wordpress-jacksonville\' in https://www.meetup.com/wordpress-jacksonville/', 'wp-meetup-doorbell' ),
 			'id'   => 'meetup_slug',
 			'type' => 'text',
 		) );

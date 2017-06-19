@@ -181,7 +181,7 @@ final class WP_Meetup_Doorbell {
 		$this->slack_post = new WPMD_Slack_Post( $this );
 		$this->options = new WPMD_Options( $this );
 		$this->twilio_endpoint = new WPMD_Twilio_Endpoint( $this );
-		//$this->meetup_event = new WPMD_Meetup_Event( $this );
+		$this->meetup_event = new WPMD_Meetup_Event( $this );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
@@ -340,7 +340,7 @@ final class WP_Meetup_Doorbell {
 			case 'slack_post':
 			case 'options':
 			case 'twilio_endpoint':
-			//case 'meetup_event':
+			case 'meetup_event':
 				return $this->$field;
 			default:
 				throw new Exception( 'Invalid ' . __CLASS__ . ' property: ' . $field );
