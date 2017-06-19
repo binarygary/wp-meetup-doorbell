@@ -44,8 +44,8 @@ class WPMD_Meetup_Event extends CPT_Core {
 		// First parameter should be an array with Singular, Plural, and Registered name.
 		parent::__construct(
 			array(
-				esc_html__( 'WP Meetup Doorbell Meetup Event', 'wp-meetup-doorbell' ),
-				esc_html__( 'WP Meetup Doorbell Meetup Events', 'wp-meetup-doorbell' ),
+				esc_html__( 'Meetup Event', 'wp-meetup-doorbell' ),
+				esc_html__( 'Meetup Events', 'wp-meetup-doorbell' ),
 				'wpmd-meetup-event',
 			),
 			array(
