@@ -57,7 +57,7 @@ class WPMD_Slack_Post {
 	 * @since  0.1.0
 	 */
 	public function hooks() {
-		add_action( 'init', [ $this, 'get_slack_endpoint' ] );
+		add_action( 'init', array( $this, 'get_slack_endpoint' ) );
 	}
 
 	/**
