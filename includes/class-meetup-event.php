@@ -71,12 +71,16 @@ class WPMD_Meetup_Event extends CPT_Core {
 		add_action( 'wp-meetup-doorbell-cron', array( $this, 'update_calendar' ) );
 	}
 
-	/**
-	 * Add custom fields to the CPT.
-	 *
-	 * @since  0.1.0
-	 */
-	public function fields() {
+	public function update_calendar() {
+		$calendar = new WPMD_Meetup_Calendar();
+		array_map( array( $this, 'insert_or_update_event' ), $calendar->get_events() );
+	}
+
+	public function insert_or_update_event( $event ) {
+		$this->meetup_event_exists( $event );
+		$this->update_event( $event );
+		$this->add_event_meta( $event );
+	}
 
 		// Set our prefix.
 		$prefix = 'wpmd_meetup_event_';
