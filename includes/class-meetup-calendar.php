@@ -44,7 +44,7 @@ class WPMD_Meetup_Calendar {
 		if ( $ical_feed = $this->retrieve_feed() ) {
 			$ical_feed_array = explode( PHP_EOL, $ical_feed );
 			$ical = new ical( $ical_feed_array );
-			return $ical->event();
+			return $ical->events();
 		}
 		return array();
 	}
