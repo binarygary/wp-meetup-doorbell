@@ -68,7 +68,6 @@ class WPMD_Meetup_Event extends CPT_Core {
 	 * @since  0.1.0
 	 */
 	public function hooks() {
-		add_action( 'cmb2_init', array( $this, 'fields' ) );
 		add_action( 'wp-meetup-doorbell-cron', array( $this, 'update_calendar' ) );
 	}
 
