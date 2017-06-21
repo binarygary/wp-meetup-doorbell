@@ -44,7 +44,9 @@ class ICal
     private /** @type {string} */ $_lastKeyWord;
 
     /** 
-     * Creates the iCal-Object
+     * Creates the iCal-Object.
+     * !! Modified from the original class.
+     * !! Now accepts a filename or an array.
      * 
      * @param {string} $filename The path to the iCal-file
      *
