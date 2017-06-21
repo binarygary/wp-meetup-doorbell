@@ -82,47 +82,32 @@ class WPMD_Meetup_Event extends CPT_Core {
 		$this->add_event_meta( $event );
 	}
 
-		// Set our prefix.
-		$prefix = 'wpmd_meetup_event_';
+	public function meetup_event_exists( $event ) {
+		global $wpdb;
 
-		// Define our metaboxes and fields.
-		$cmb = new_cmb2_box( array(
-			'id'            => $prefix . 'metabox',
-			'title'         => esc_html__( 'WP Meetup Doorbell Meetup Event Meta Box', 'wp-meetup-doorbell' ),
-			'object_types'  => array( 'wpmd-meetup-event' ),
+		$this->event_id = $wpdb->get_var( $wpdb->prepare(
+			"SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'meetup_UID' AND meta_value = '%s'",
+			$event['UID']
 		) );
 	}
 
-	/**
-	 * Registers admin columns to display. Hooked in via CPT_Core.
-	 *
-	 * @since  0.1.0
-	 *
-	 * @param  array $columns Array of registered column names/labels.
-	 * @return array          Modified array.
-	 */
-	public function columns( $columns ) {
-		$new_column = array();
-		return array_merge( $new_column, $columns );
+	public function update_event( $event ) {
+		$event_post = array(
+			'ID'           => $this->event_id,
+			'post_content' => $event['DESCRIPTION'],
+			'post_type'    => 'wpmd-meetup-event',
+			'post_title'   => $event['URL'],
+			'post_statue'  => 'CONFIRMED' == $event['STATUS'] ? 'publish' : 'draft',
+		);
+
+		$this->event_id = wp_insert_post( $event_post );
 	}
 
-	/**
-	 * Handles admin column display. Hooked in via CPT_Core.
-	 *
-	 * @since  0.1.0
-	 *
-	 * @param array   $column   Column currently being rendered.
-	 * @param integer $post_id  ID of post to display column for.
-	 */
-	public function columns_display( $column, $post_id ) {
-		switch ( $column ) {
-		}
-	}
-
-	public function update_calendar() {
-		$calendar = new WPMD_Meetup_Calendar();
-		foreach( $calendar->get_events() as $event) {
-			// Check the UID and add/update.
-		}
+	public function add_event_meta( $event ) {
+		update_post_meta( $this->event_id, 'meetup_UID', $event['UID'] );
+		update_post_meta( $this->event_id, 'meetup_URL', $event['URL'] );
+		update_post_meta( $this->event_id, 'meetup_coods', $event['GEO'] );
+		update_post_meta( $this->event_id, 'meetup_start', strtotime( $event['DTSTART'] ) );
+		update_post_meta( $this->event_id, 'meetup_end', strtotime( $event['DTEND'] ) );
 	}
 }
