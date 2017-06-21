@@ -26,6 +26,13 @@ class WPMD_Meetup_Event extends CPT_Core {
 	protected $plugin = null;
 
 	/**
+	 * The post id of the event we're working with.
+	 *
+	 * @var int null
+	 */
+	protected $event_id = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * Register Custom Post Types.
