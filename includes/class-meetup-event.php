@@ -77,12 +77,12 @@ class WPMD_Meetup_Event extends CPT_Core {
 	}
 
 	public function insert_or_update_event( $event ) {
-		$this->meetup_event_exists( $event );
+		$this->set_post_id_meetup_event( $event );
 		$this->update_event( $event );
 		$this->add_event_meta( $event );
 	}
 
-	public function meetup_event_exists( $event ) {
+	public function set_post_id_meetup_event( $event ) {
 		global $wpdb;
 
 		$this->event_id = $wpdb->get_var( $wpdb->prepare(
@@ -97,7 +97,7 @@ class WPMD_Meetup_Event extends CPT_Core {
 			'post_content' => $event['DESCRIPTION'],
 			'post_type'    => 'wpmd-meetup-event',
 			'post_title'   => $event['URL'],
-			'post_statue'  => 'CONFIRMED' == $event['STATUS'] ? 'publish' : 'draft',
+			'post_status'  => 'CONFIRMED' === $event['STATUS'] ? 'publish' : 'draft',
 		);
 
 		$this->event_id = wp_insert_post( $event_post );
