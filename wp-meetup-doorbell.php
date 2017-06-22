@@ -1,7 +1,5 @@
 <?php
 
-namespace WDS\MeetupDoorbell;
-
 /**
  * Plugin Name: WP Meetup Doorbell
  * Plugin URI:  https://wpjax.org
