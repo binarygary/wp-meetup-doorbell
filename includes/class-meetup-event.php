@@ -56,8 +56,8 @@ class WPMD_Meetup_Event extends CPT_Core {
 				'wpmd-meetup-event',
 			),
 			array(
-				'public'  => false,
-				'show_ui' => false,
+				'public'  => true,
+				'show_ui' => true,
 			)
 		);
 	}
@@ -97,7 +97,7 @@ class WPMD_Meetup_Event extends CPT_Core {
 			'post_content' => $event['DESCRIPTION'],
 			'post_type'    => 'wpmd-meetup-event',
 			'post_title'   => $event['URL'],
-			'post_status'  => 'CONFIRMED' === $event['STATUS'] ? 'publish' : 'draft',
+			'post_status'  => 'publish',
 		);
 
 		$this->event_id = wp_insert_post( $event_post );
