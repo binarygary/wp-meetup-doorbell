@@ -72,17 +72,30 @@ class WPMD_Meetup_Event extends CPT_Core {
 		add_action( 'wp-meetup-doorbell-cron', array( $this, 'update_calendar' ) );
 	}
 
+	/**
+	 * Update the events.
+	 */
 	public function update_calendar() {
 		$calendar = new WPMD_Meetup_Calendar();
 		array_map( array( $this, 'insert_or_update_event' ), $calendar->get_events() );
 	}
 
+	/**
+	 * Insert a new event or update existing.
+	 *
+	 * @param array() $event The event info.
+	 */
 	public function insert_or_update_event( $event ) {
 		$this->set_post_id_meetup_event( $event );
 		$this->update_event( $event );
 		$this->add_event_meta( $event );
 	}
 
+	/**
+	 * Set the meetup ID.
+	 *
+	 * @param array() $event The event info.
+	 */
 	public function set_post_id_meetup_event( $event ) {
 		global $wpdb;
 
@@ -92,6 +105,11 @@ class WPMD_Meetup_Event extends CPT_Core {
 		) );
 	}
 
+	/**
+	 * Actually do the insert.
+	 *
+	 * @param array() $event The event info.
+	 */
 	public function update_event( $event ) {
 		$event_post = array(
 			'ID'           => $this->event_id,
@@ -104,6 +122,11 @@ class WPMD_Meetup_Event extends CPT_Core {
 		$this->event_id = wp_insert_post( $event_post );
 	}
 
+	/**
+	 * Update the meta.
+	 *
+	 * @param array() $event The event info.
+	 */
 	public function add_event_meta( $event ) {
 		update_post_meta( $this->event_id, 'meetup_UID', $event['UID'] );
 		update_post_meta( $this->event_id, 'meetup_URL', $event['URL'] );

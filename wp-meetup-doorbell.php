@@ -182,6 +182,7 @@ final class WP_Meetup_Doorbell {
 		$this->options = new WPMD_Options( $this );
 		$this->twilio_endpoint = new WPMD_Twilio_Endpoint( $this );
 		$this->meetup_event = new WPMD_Meetup_Event( $this );
+		require( self::dir( 'includes/class-upcoming-meetups.php' ) );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
