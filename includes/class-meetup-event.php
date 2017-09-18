@@ -56,8 +56,9 @@ class WPMD_Meetup_Event extends CPT_Core {
 				'wpmd-meetup-event',
 			),
 			array(
-				'public'  => true,
-				'show_ui' => true,
+				'public'   => true,
+				'show_ui'  => true,
+				'supports' => array( 'title', 'custom-fields' ),
 			)
 		);
 	}
@@ -94,9 +95,9 @@ class WPMD_Meetup_Event extends CPT_Core {
 	public function update_event( $event ) {
 		$event_post = array(
 			'ID'           => $this->event_id,
-			'post_content' => $event['DESCRIPTION'],
+			'post_content' => str_replace( '\n', PHP_EOL, $event['DESCRIPTION'] ),
 			'post_type'    => 'wpmd-meetup-event',
-			'post_title'   => $event['URL'],
+			'post_title'   => str_replace( '\n', PHP_EOL, $event['SUMMARY'] ),
 			'post_status'  => 'publish',
 		);
 
