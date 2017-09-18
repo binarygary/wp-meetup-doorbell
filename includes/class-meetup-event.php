@@ -134,4 +134,8 @@ class WPMD_Meetup_Event extends CPT_Core {
 		update_post_meta( $this->event_id, 'meetup_start', strtotime( $event['DTSTART'] ) );
 		update_post_meta( $this->event_id, 'meetup_end', strtotime( $event['DTEND'] ) );
 	}
+
+	public function unpublish_old_meetups() {
+
+	}
 }

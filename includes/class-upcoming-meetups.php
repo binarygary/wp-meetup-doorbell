@@ -156,19 +156,36 @@ class WPMD_Upcoming_Meetups extends WP_Widget {
 	}
 
 	public static function display_upcoming_meetups() {
-		$meetups = self::get_upcoming_meetup_posts()
-		while( $meetups->have_posts() ) {
-
+		$meetups = self::get_upcoming_meetups_posts();
+		echo '<ul>';
+		while ( $meetups->have_posts() ) {
+			$meetups->the_post();
+			$start_date = get_post_meta( get_the_ID(), 'meetup_start', true );
+			echo '<li><a href=' . esc_url( get_post_meta( get_the_ID(), 'meetup_URL', true ) ) . '>';
+			the_title();
+			echo '</a><BR />';
+			echo date( 'l n/j/y g:i A', $start_date );
 		}
+		echo '</ul>';
+		wp_reset_postdata();
 	}
+
 
 	public static function get_upcoming_meetups_posts() {
 		$args = array(
-			'post_type' => 'wpmd-meetup-event',
+			'post_type'      => 'wpmd-meetup-event',
 			'posts_per_page' => 5,
-			'orderby' => 'meta_value_num',
-			'meta_key' => 'meetup_start',
-			'order' => 'ASC',
+			'orderby'        => 'meta_value_num',
+			'meta_key'       => 'meetup_start',
+			'order'          => 'ASC',
+			'meta_query' => array(
+				array(
+					'key'     => 'meetup_start',
+					'value'   => time(),
+					'compare' => '>',
+					'type'    => 'NUMERIC',
+				),
+			),
 		);
 		return new WP_Query( $args );
 	}
