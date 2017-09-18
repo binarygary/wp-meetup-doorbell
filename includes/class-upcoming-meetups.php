@@ -58,15 +58,15 @@ class WPMD_Upcoming_Meetups extends WP_Widget {
 	 */
 	public function __construct() {
 
-		$this->widget_name = esc_html__( 'WP Meetup Doorbell Upcoming Meetups', 'wp-meetup-doorbell' );
-		$this->default_widget_title = esc_html__( 'WP Meetup Doorbell Upcoming Meetups', 'wp-meetup-doorbell' );
+		$this->widget_name = esc_html__( 'Upcoming Meetups', 'wp-meetup-doorbell' );
+		$this->default_widget_title = esc_html__( 'Upcoming Meetups', 'wp-meetup-doorbell' );
 
 		parent::__construct(
 			$this->widget_slug,
 			$this->widget_name,
 			array(
 				'classname'   => $this->widget_slug,
-				'description' => esc_html__( 'A widget boilerplate description.', 'wp-meetup-doorbell' ),
+				'description' => esc_html__( 'List of upcoming meetup events.', 'wp-meetup-doorbell' ),
 			)
 		);
 
@@ -131,7 +131,6 @@ class WPMD_Upcoming_Meetups extends WP_Widget {
 			'before_title'  => '',
 			'after_title'   => '',
 			'title'         => '',
-			'text'          => '',
 		);
 
 		// Parse defaults and create a shortcode.
@@ -147,13 +146,31 @@ class WPMD_Upcoming_Meetups extends WP_Widget {
 		echo ( $atts['title'] ) ? $atts['before_title'] . esc_html( $atts['title'] ) . $atts['after_title'] : '' ; // WPCS XSS OK.
 
 		// Display widget text.
-		echo wpautop( wp_kses_post( $atts['text'] ) ); // WPCS XSS OK.
+		self::display_upcoming_meetups();
 
 		// End the widget markup.
 		echo $atts['after_widget']; // WPCS XSS OK.
 
 		// Return the output buffer.
 		return ob_get_clean();
+	}
+
+	public static function display_upcoming_meetups() {
+		$meetups = self::get_upcoming_meetup_posts()
+		while( $meetups->have_posts() ) {
+
+		}
+	}
+
+	public static function get_upcoming_meetups_posts() {
+		$args = array(
+			'post_type' => 'wpmd-meetup-event',
+			'posts_per_page' => 5,
+			'orderby' => 'meta_value_num',
+			'meta_key' => 'meetup_start',
+			'order' => 'ASC',
+		);
+		return new WP_Query( $args );
 	}
 
 	/**
@@ -172,17 +189,9 @@ class WPMD_Upcoming_Meetups extends WP_Widget {
 
 		// Sanity check new data existing.
 		$title = isset( $new_instance['title'] ) ? $new_instance['title'] : '';
-		$text  = isset( $new_instance['text'] ) ? $new_instance['text'] : '';
 
 		// Sanitize title before saving to database.
 		$instance['title'] = sanitize_text_field( $title );
-
-		// Sanitize text before saving to database.
-		if ( current_user_can( 'unfiltered_html' ) ) {
-			$instance['text'] = force_balance_tags( $text );
-		} else {
-			$instance['text'] = stripslashes( wp_filter_post_kses( addslashes( $text ) ) );
-		}
 
 		// Flush cache.
 		$this->flush_widget_cache();
@@ -202,7 +211,6 @@ class WPMD_Upcoming_Meetups extends WP_Widget {
 		// Set defaults.
 		$defaults = array(
 			'title' => $this->default_widget_title,
-			'text'  => '',
 		);
 
 		// Parse args.
@@ -213,15 +221,6 @@ class WPMD_Upcoming_Meetups extends WP_Widget {
 				<?php esc_html_e( 'Title:', 'wp-meetup-doorbell' ); ?>
 			</label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_html( $instance['title'] ); ?>" placeholder="optional" />
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>">
-				<?php esc_html_e( 'Text:', 'wp-meetup-doorbell' ); ?>
-			</label>
-			<textarea class="widefat" rows="16" cols="20" id="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'text' ) ); ?>"><?php echo esc_textarea( $instance['text'] ); ?></textarea>
-		</p>
-		<p class="description">
-			<?php esc_html_e( 'Basic HTML tags are allowed.', 'wp-meetup-doorbell' ); ?>
 		</p>
 		<?php
 	}
