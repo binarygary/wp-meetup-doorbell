@@ -45,16 +45,15 @@
  * @since  0.1.0
  * @param  string $class_name Name of the class being requested.
  */
-function wp_meetup_doorbell_autoload_classes( $class_name ) {
 
+
+function wp_meetup_doorbell_autoload_classes( $class_name ) {
 	// If our class doesn't have our prefix, don't load it.
 	if ( 0 !== strpos( $class_name, 'WPMD_' ) ) {
 		return;
 	}
-
 	// Set up our filename.
 	$filename = strtolower( str_replace( '_', '-', substr( $class_name, strlen( 'WPMD_' ) ) ) );
-
 	// Include our file.
 	WP_Meetup_Doorbell::include_file( 'includes/class-' . $filename );
 }
@@ -140,6 +139,14 @@ final class WP_Meetup_Doorbell {
 	protected $twilio_endpoint;
 
 	/**
+	 * Instance of WPMD_Meetup_Event
+	 *
+	 * @since0.1.0
+	 * @var WPMD_Meetup_Event
+	 */
+	protected $meetup_event;
+
+	/**
 	 * Creates or returns an instance of this class.
 	 *
 	 * @since   0.1.0
@@ -174,6 +181,7 @@ final class WP_Meetup_Doorbell {
 		$this->slack_post = new WPMD_Slack_Post( $this );
 		$this->options = new WPMD_Options( $this );
 		$this->twilio_endpoint = new WPMD_Twilio_Endpoint( $this );
+		$this->meetup_event = new WPMD_Meetup_Event( $this );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
@@ -202,6 +210,11 @@ final class WP_Meetup_Doorbell {
 
 		// Make sure any rewrite functionality has been loaded.
 		flush_rewrite_rules();
+
+		// Add a cron so we can grab the calendar, turn on/off notifications.
+		if ( ! wp_next_scheduled( 'wp-meetup-doorbell-cron' ) ) {
+			wp_schedule_event( time(), 'hourly', 'wp-meetup-doorbell-cron' );
+		}
 	}
 
 	/**
@@ -212,6 +225,10 @@ final class WP_Meetup_Doorbell {
 	 */
 	public function _deactivate() {
 		// Add deactivation cleanup functionality here.
+
+		// Clear the cron.
+		wp_clear_scheduled_hook( 'wp-meetup-doorbell-cron' );
+
 	}
 
 	/**
@@ -332,6 +349,7 @@ final class WP_Meetup_Doorbell {
 			case 'slack_post':
 			case 'options':
 			case 'twilio_endpoint':
+			case 'meetup_event':
 				return $this->$field;
 			default:
 				throw new Exception( 'Invalid ' . __CLASS__ . ' property: ' . $field );

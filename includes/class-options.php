@@ -145,12 +145,20 @@ class WPMD_Options {
 			),
 		) );
 
-		// Add your fields here.
+		// Slack endpoint.
 		$cmb->add_field( array(
 			'name'    => __( 'Slack Endpoint', 'wp-meetup-doorbell' ),
 			'desc'    => __( 'format: https://hooks.slack.com/services/T00000000/B00000000/xxxxxxxxxxxxxxxxxxxxxxxx', 'wp-meetup-doorbell' ),
-			'id'      => 'slack_endpoint', // No prefix needed.
+			'id'      => 'slack_endpoint',
 			'type'    => 'text',
+		) );
+
+		// Meetup group name.
+		$cmb->add_field( array(
+			'name' => __( 'Meetup slug', 'wp-meetup-doorbell' ),
+			'desc' => __( 'example: \'wordpress-jacksonville\' in https://www.meetup.com/wordpress-jacksonville/', 'wp-meetup-doorbell' ),
+			'id'   => 'meetup_slug',
+			'type' => 'text',
 		) );
 
 	}
