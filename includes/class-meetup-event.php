@@ -78,6 +78,7 @@ class WPMD_Meetup_Event extends CPT_Core {
 	public function update_calendar() {
 		$calendar = new WPMD_Meetup_Calendar();
 		array_map( array( $this, 'insert_or_update_event' ), $calendar->get_events() );
+		$this->unpublish_old_meetups();
 	}
 
 	/**
@@ -136,6 +137,30 @@ class WPMD_Meetup_Event extends CPT_Core {
 	}
 
 	public function unpublish_old_meetups() {
+		$args = array(
+			'post_type'      => 'wpmd-meetup-event',
+			'posts_per_page' => 100,
+			'meta_query' => array(
+				array(
+					'key'     => 'meetup_start',
+					'value'   => time(),
+					'compare' => '<',
+					'type'    => 'NUMERIC',
+				),
+			),
+		);
+		$meetups = new WP_Query( $args );
+
+		while ( $meetups->have_posts() ) {
+			$meetups->the_post();
+
+			wp_update_post( array(
+				'ID' => get_the_ID(),
+				'post_status' => 'draft',
+			) );
+
+		}
+		wp_reset_postdata();
 
 	}
 }
