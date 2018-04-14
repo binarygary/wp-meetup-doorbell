@@ -50,7 +50,34 @@ class WPMD_Twilio_Endpoint {
 	 * @author Gary Kovar
 	 */
 	public function handle_twilio_message(){
-		$this->plugin->slack_post->set_message( $_POST['Body'] );
-		$this->plugin->slack_post->send_message();
+		if ( ! get_option( 'wp_meetup_doorbell_options' )['no_slack'] ) {
+			$this->plugin->slack_post->set_message( $_POST['Body'] );
+			$this->plugin->slack_post->send_message();
+		}
+
+		$this->mirror_message( sanitize_textarea_field( $_POST['Body'] ) );
+	}
+
+	public function mirror_message( $message = 'no message was set' ) {
+		$url = sprintf(
+			'https://api.twilio.com/2010-04-01/Accounts/%s/Messages.json',
+			get_option( 'wp_meetup_doorbell_options' )['twilio_sid']
+		);
+
+		$auth = base64_encode( get_option( 'wp_meetup_doorbell_options' )['twilio_sid'] . ':' . get_option( 'wp_meetup_doorbell_options' )['twilio_token'] );
+
+		foreach( explode( ',', get_option( 'wp_meetup_doorbell_options' )['also_notify'] ) as $number ) {
+			wp_remote_post( $url, [
+				'body'    => [
+					'Body' => sprintf( 'WP Meetup Doorbell: %s', $message ),
+					'To'   => $number,
+					'From' => '+1 904-999-4146',
+				],
+				'headers' => [
+					'Content-type'  => 'application/x-www-form-urlencoded',
+					'Authorization' => "Basic $auth",
+				],
+			] );
+		}
 	}
 }

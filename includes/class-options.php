@@ -162,6 +162,12 @@ class WPMD_Options {
 		) );
 
 		$cmb->add_field( [
+			'name' => __( 'Temporarily disable slack notices', 'wp-meetup-doorbell' ),
+			'id'   => 'no_slack',
+			'type' => 'checkbox',
+		] );
+
+		$cmb->add_field( [
 			'name' => __( 'Notify Phone Numbers', 'wp-meetup-doorbell' ),
 			'desc' => __( 'Comma separted list of 10 digit phone numbers to also notify', 'wp-meetup-doorbell' ),
 			'id'   => 'also_notify',
