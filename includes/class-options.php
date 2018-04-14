@@ -161,5 +161,24 @@ class WPMD_Options {
 			'type' => 'text',
 		) );
 
+		$cmb->add_field( [
+			'name' => __( 'Notify Phone Numbers', 'wp-meetup-doorbell' ),
+			'desc' => __( 'Comma separted list of 10 digit phone numbers to also notify', 'wp-meetup-doorbell' ),
+			'id'   => 'also_notify',
+			'type' => 'text',
+		] );
+
+		$cmb->add_field( [
+			'name' => __( 'Twilio SID', 'wp-meetup-doorbell' ),
+			'id'   => 'twilio_sid',
+			'type' => 'text',
+		] );
+
+		$cmb->add_field( [
+			'name' => __( 'Twilio Token', 'wp-meetup-doorbell' ),
+			'id'   => 'twilio_token',
+			'type' => 'text',
+		] );
+
 	}
 }
