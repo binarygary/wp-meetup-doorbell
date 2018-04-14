@@ -69,7 +69,7 @@ class WPMD_Slack_Post {
 	 */
 	public function get_slack_endpoint() {
 		$doorbell_options     = get_option( 'wp_meetup_doorbell_options' );
-		$this->slack_endpoint = $doorbell_options['slack_endpoint'];
+		$this->slack_endpoint = array_key_exists( 'slack_endpoint', $doorbell_options ) ? $doorbell_options['slack_endpoint'] : null;
 	}
 
 	/**
